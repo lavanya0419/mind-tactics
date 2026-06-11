@@ -19,6 +19,11 @@ from routes.game import game_bp
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(game_bp, url_prefix='/api')
 
+@app.route('/')
+def home():
+    return {"message": "MindTactics Backend is Running!"}, 200
+
+
 with app.app_context():
     db.create_all()
     # Create test user if not exists
