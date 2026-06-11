@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkModule {
-    private const val BASE_URL = "http://10.131.84.43:5000/"
+    private const val BASE_URL = "https://mind-tactics.onrender.com/"
 
     fun provideApiService(context: Context): ApiService {
         val authDataStore = AuthDataStore(context)
