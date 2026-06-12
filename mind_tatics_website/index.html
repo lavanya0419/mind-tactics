@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindTactics - Cognitive Training Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav>
+        <a href="#" class="nav-brand" id="brand-logo">
+            Mind<span class="brand-accent">Tactics</span>
+        </a>
+        <div class="nav-links">
+            <div id="user-badge" class="user-badge">Level 1 | 0 XP</div>
+            <button id="nav-login-btn" class="btn btn-secondary">Login</button>
+            <button id="nav-signup-btn" class="btn btn-primary">Sign Up</button>
+            <button id="nav-logout-btn" class="btn btn-logout">Logout</button>
+        </div>
+    </nav>
+
+    <!-- LANDING / HERO SECTION -->
+    <section id="landing-view" class="hero">
+        <h1>Train Your Brain In <span class="glow-text">Deep Space</span></h1>
+        <p>Unlock your cognitive potential with 4 core training modules. Boost your focus, memory, reflex, and numerical deduction.</p>
+        <div>
+            <button id="hero-get-started-btn" class="btn btn-primary btn-lg" style="padding: 1rem 2rem; font-size: 1.1rem;">Get Started Now</button>
+        </div>
+    </section>
+
+    <!-- DASHBOARD VIEW -->
+    <section id="dashboard-view" class="dashboard-container">
+        <!-- Main Panel (Left) -->
+        <main>
+            <!-- User Stats -->
+            <div class="stats-grid">
+                <div class="card stat-card">
+                    <h3>User Level</h3>
+                    <div id="dash-level" class="stat-val">1</div>
+                </div>
+                <div class="card stat-card">
+                    <h3>Total XP</h3>
+                    <div id="dash-xp" class="stat-val">0</div>
+                </div>
+                <div class="card stat-card streak-card">
+                    <h3>Daily Streak</h3>
+                    <div id="dash-streak" class="stat-val">0 🔥</div>
+                </div>
+            </div>
+
+            <!-- Modules Selection -->
+            <h2 class="dashboard-title">Training Modules</h2>
+            <div class="games-grid">
+                <!-- Reflex Tap -->
+                <div class="card game-card" onclick="openLevelSelect('Reflex Tap')">
+                    <div class="game-meta">
+                        <h3 style="color: var(--electric-blue);">Reflex Tap</h3>
+                        <p>Improve spatial awareness and hand-eye coordination. Tap targets as quickly as they appear before the timer runs out.</p>
+                    </div>
+                    <div class="game-footer">
+                        <span id="unlocked-reflex" class="level-indicator">Level Unlocked: 1</span>
+                        <button class="btn btn-outline btn-sm">Play</button>
+                    </div>
+                </div>
+
+                <!-- Focus Shift -->
+                <div class="card game-card" onclick="openLevelSelect('Focus Shift')">
+                    <div class="game-meta">
+                        <h3 style="color: var(--neon-purple);">Focus Shift</h3>
+                        <p>Enhance cognitive flexibility and selective attention. Rapidly identify colors and overcome the Stroop effect interference.</p>
+                    </div>
+                    <div class="game-footer">
+                        <span id="unlocked-focus" class="level-indicator">Level Unlocked: 1</span>
+                        <button class="btn btn-outline btn-sm">Play</button>
+                    </div>
+                </div>
+
+                <!-- Path Builder -->
+                <div class="card game-card" onclick="openLevelSelect('Path Builder')">
+                    <div class="game-meta">
+                        <h3 style="color: var(--electric-blue);">Path Builder</h3>
+                        <p>Test your short-term spatial working memory. Memorize a blinking path on a grid and replicate it step-by-step.</p>
+                    </div>
+                    <div class="game-footer">
+                        <span id="unlocked-path" class="level-indicator">Level Unlocked: 1</span>
+                        <button class="btn btn-outline btn-sm">Play</button>
+                    </div>
+                </div>
+
+                <!-- Code Breaker -->
+                <div class="card game-card" onclick="openLevelSelect('Code Breaker')">
+                    <div class="game-meta">
+                        <h3 style="color: var(--gold);">Code Breaker</h3>
+                        <p>Train logical reasoning and deduction. Guess the secret passcode and decode the bulls and cows count feedback.</p>
+                    </div>
+                    <div class="game-footer">
+                        <span id="unlocked-code" class="level-indicator">Level Unlocked: 1</span>
+                        <button class="btn btn-outline btn-sm">Play</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar Panel (Right) -->
+        <aside class="card leaderboard-panel">
+            <h2 class="leaderboard-title">Global Leaderboard</h2>
+            <div id="leaderboard-list" class="leaderboard-list">
+                <!-- Loaded dynamically -->
+                <p style="color: var(--text-secondary); text-align: center;">Loading rankings...</p>
+            </div>
+        </aside>
+    </section>
+
+    <!-- AUTHENTICATION MODALS -->
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="card modal-content">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <button class="close-btn" onclick="closeModals()">&times;</button>
+            </div>
+            <div id="login-alert" class="alert-message"></div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.8rem;">Access Terminal</button>
+            </form>
+            <div class="modal-footer-link">
+                Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signup-modal" class="modal-overlay">
+        <div class="card modal-content">
+            <div class="modal-header">
+                <h2>Create Account</h2>
+                <button class="close-btn" onclick="closeModals()">&times;</button>
+            </div>
+            <div id="signup-alert" class="alert-message"></div>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required placeholder="Enter full name">
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" required placeholder="Enter email address">
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required placeholder="Choose secure password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.8rem;">Initialize Profile</button>
+            </form>
+            <div class="modal-footer-link">
+                Already have a profile? <a href="#" onclick="showLogin()">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEVEL SELECTION MODAL -->
+    <div id="level-modal" class="modal-overlay">
+        <div class="card modal-content" style="max-width: 460px;">
+            <div class="modal-header">
+                <h2 id="level-modal-title">Select Level</h2>
+                <button class="close-btn" onclick="closeModals()">&times;</button>
+            </div>
+            <p id="level-modal-desc" style="color: var(--text-secondary); margin-bottom: 1.5rem;"></p>
+            <div id="level-buttons-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-height: 250px; overflow-y: auto; padding-right: 5px;">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME ROOMS -->
+    <!-- 1. Reflex Tap Game Room -->
+    <div id="reflex-room" class="game-room">
+        <div class="game-header">
+            <button class="btn btn-secondary" onclick="exitGame()">Exit</button>
+            <div class="game-hud">
+                <span class="hud-score" id="reflex-score">SCORE: 0</span>
+                <span class="hud-timer" id="reflex-timer">TIME: 30s</span>
+                <span class="hud-level" id="reflex-level-badge">Lvl 1</span>
+            </div>
+        </div>
+        <div class="game-arena" id="reflex-arena">
+            <!-- Reflex targets will be spawned dynamically -->
+        </div>
+        <div class="room-overlay" id="reflex-overlay">
+            <h2 style="color: var(--electric-blue);">LEVEL COMPLETE</h2>
+            <p id="reflex-final-score">Your Score: 0</p>
+            <button class="btn btn-primary" onclick="exitGame()">Continue</button>
+        </div>
+    </div>
+
+    <!-- 2. Focus Shift Game Room -->
+    <div id="focus-room" class="game-room">
+        <div class="game-header">
+            <button class="btn btn-secondary" onclick="exitGame()">Exit</button>
+            <div class="game-hud">
+                <span class="hud-score" id="focus-score">SCORE: 0</span>
+                <span class="hud-timer" id="focus-timer">TIME: 20s</span>
+                <span class="hud-level" id="focus-level-badge">Lvl 1</span>
+            </div>
+        </div>
+        <div class="game-arena">
+            <div class="stroop-container">
+                <span class="stroop-prompt">Identify the font color</span>
+                <span id="stroop-word" class="stroop-word">RED</span>
+                <div id="stroop-options" class="stroop-options">
+                    <!-- Dynamic color boxes -->
+                </div>
+            </div>
+        </div>
+        <div class="room-overlay" id="focus-overlay">
+            <h2 style="color: var(--neon-purple);">FOCUS TEST ENDED</h2>
+            <p id="focus-final-score">Final Score: 0</p>
+            <button class="btn btn-primary" onclick="exitGame()">Back to Dashboard</button>
+        </div>
+    </div>
+
+    <!-- 3. Path Builder Game Room -->
+    <div id="path-room" class="game-room">
+        <div class="game-header">
+            <button class="btn btn-secondary" onclick="exitGame()">Exit</button>
+            <div class="game-hud">
+                <span class="hud-score" id="path-score">SCORE: 0</span>
+                <span class="hud-level" id="path-level-badge">Lvl 1</span>
+            </div>
+        </div>
+        <div class="game-arena">
+            <div class="path-container">
+                <span id="path-prompt" class="path-prompt">Memorize the Path</span>
+                <div id="path-grid" class="path-grid">
+                    <!-- Grid generated dynamically -->
+                </div>
+            </div>
+        </div>
+        <div class="room-overlay" id="path-overlay">
+            <h2 id="path-final-status">SUCCESS</h2>
+            <p id="path-final-score">Score: 100</p>
+            <button class="btn btn-primary" onclick="exitGame()">Continue</button>
+        </div>
+    </div>
+
+    <!-- 4. Code Breaker Game Room -->
+    <div id="code-room" class="game-room">
+        <div class="game-header">
+            <button class="btn btn-secondary" onclick="exitGame()">Exit</button>
+            <div class="game-hud">
+                <span class="hud-score" id="code-score">GUESSES: 0</span>
+                <span class="hud-level" id="code-level-badge">Lvl 1</span>
+            </div>
+        </div>
+        <div class="game-arena">
+            <div class="breaker-container">
+                <h3 style="color: var(--gold); margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: 800;">CODE BREAKER</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;" id="code-instruction">Crack the 3-digit code</p>
+                
+                <div id="breaker-inputs" class="breaker-inputs">
+                    <!-- Digit input buttons loaded dynamically -->
+                </div>
+
+                <button class="btn btn-primary" onclick="submitCodeGuess()">Submit Guess</button>
+
+                <div class="breaker-log" id="breaker-log">
+                    <!-- List of previous guesses -->
+                </div>
+            </div>
+        </div>
+        <div class="room-overlay" id="code-overlay">
+            <h2 style="color: var(--gold);">CODE CRACKED!</h2>
+            <p id="code-final-score">Score: 500</p>
+            <button class="btn btn-primary" onclick="exitGame()">Continue</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

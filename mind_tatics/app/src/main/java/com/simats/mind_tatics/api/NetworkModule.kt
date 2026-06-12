@@ -11,7 +11,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkModule {
-    private const val BASE_URL = "https://mind-tactics.onrender.com/"
+    // Live Render Backend:
+    // private const val BASE_URL = "https://mind-tactics.onrender.com/"
+    
+    // Local Flask Backend for Physical Device on the same network:
+    private const val BASE_URL = "http://10.157.192.141:5000/"
+    
+    // Local Flask Backend for Android Emulator:
+    // private const val BASE_URL = "http://10.0.2.2:5000/"
 
     fun provideApiService(context: Context): ApiService {
         val authDataStore = AuthDataStore(context)
